@@ -1,0 +1,4 @@
+project=local
+table=wordcount_out
+columns=user_id:STRING,item_id:STRING,hour:BIGINT,is_buy:BIGINT
+partitions=dt:STRING

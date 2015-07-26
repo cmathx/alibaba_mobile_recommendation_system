@@ -1,0 +1,4 @@
+project=local
+table=tianchi_mobile_recommend_subset
+columns=user_id,item_id,behavior_type,user_geohash,item_category,time
+partitions=dt:STRING

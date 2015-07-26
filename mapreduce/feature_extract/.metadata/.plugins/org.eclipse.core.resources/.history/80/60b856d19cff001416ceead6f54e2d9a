@@ -1,0 +1,71 @@
+package my.group.resample;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Mapper;
+
+import java.io.IOException;
+
+/**
+ * Mapper模板。请用真实逻辑替换模板内容
+ */
+public class MyMapper implements Mapper {
+//	private Record key;
+//	private Record value;
+	private Record result;
+
+    public void setup(TaskContext context) throws IOException {
+//    	key = context.createMapOutputKeyRecord();
+//        value = context.createMapOutputValueRecord();
+    	result = context.createOutputRecord();
+    }
+
+    public void map(long recordNum, Record record, TaskContext context) throws IOException {
+//    	long is_buy = record.getBigint(33);
+//    	key.setString("user_id", record.getString(0));
+//    	key.setString("item_id", record.getString(1));
+//    	value.setDouble("view_rate", record.getDouble(2));
+//    	value.setDouble("col_rate", record.getDouble(3));
+//    	value.setDouble("cart_rate", record.getDouble(4));
+//    	value.setDouble("buy_rate", record.getDouble(5));
+//    	for(int i = 0; i < 24; ++i){
+//    		String prefix = "view_occur";
+//    		value.setBigint(prefix + Integer.toString(i + 1), record.getBigint(6 + i));
+//    	}
+//    	for(int i = 0; i < 3; ++i){
+//    		String prefix = "ccb_occur";
+//    		value.setBigint(prefix + Integer.toString(i + 1), record.getBigint(30 + i));
+//    	}
+//    	value.setBigint("view_col", record.getBigint(33));
+//    	value.setBigint("view_cart", record.getBigint(34));
+//    	for(int i = 0; i < 7; ++i){
+//    		String prefix = "behavior_cnt";
+//    		value.setDouble(prefix + Integer.toString(i + 1), record.getDouble(35 + i));
+//    	}
+//    	for(int i = 0; i < 4; ++i){
+//    		String prefix = "focus_cnt";
+//    		value.setDouble(prefix + Integer.toString(i + 1), record.getDouble(42 + i));
+//    	}
+//    	value.setBigint("is_buy", record.getBigint(46));
+//    	if(is_buy == 0)
+//    		context.write(key, value);
+//    	else{
+//    		int resample_cnt = 50;
+//    		for(int i = 0; i < resample_cnt; ++i)
+//    			context.write(value);
+//    	}
+    	long is_buy = record.getBigint(46);
+    	for(int i = 0; i < 47; ++i)
+    		result.set(i, record.get(i));
+    	if(is_buy == 0)
+    		context.write(result);
+    	else{
+    		int resample_cnt = 40;
+    		for(int i = 0; i < resample_cnt; ++i)
+    			context.write(result);
+    	}
+    }
+
+    public void cleanup(TaskContext context) throws IOException {
+
+    }
+}

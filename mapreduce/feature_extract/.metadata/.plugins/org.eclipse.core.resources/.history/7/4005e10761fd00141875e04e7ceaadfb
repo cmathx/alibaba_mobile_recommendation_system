@@ -1,0 +1,49 @@
+package my.group.resample;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Mapper;
+
+import java.io.IOException;
+
+/**
+ * Mapper模板。请用真实逻辑替换模板内容
+ */
+public class MyMapper implements Mapper {
+	private Record key;
+	private Record value;
+
+    public void setup(TaskContext context) throws IOException {
+    	key = context.createMapOutputKeyRecord();
+        value = context.createMapOutputValueRecord();
+    }
+
+    public void map(long recordNum, Record record, TaskContext context) throws IOException {
+    	long is_buy = record.getBigint(33);
+    	key.setString("user_id", record.getString(0));
+    	key.setString("item_id", record.getString(1));
+    	value.setDouble("view_rate", record.getDouble(2));
+    	value.setDouble("col_rate", record.getDouble(3));
+    	value.setDouble("cart_rate", record.getDouble(4));
+    	value.setDouble("buy_rate", record.getDouble(5));
+    	for(int i = 0; i < 24; ++i){
+    		String prefix = "view_occur";
+    		value.setBigint(prefix + Integer.toString(i + 1), record.getBigint(6 + i));
+    	}
+    	for(int i = 0; i < 3; ++i){
+    		String prefix = "ccb_occur";
+    		value.setBigint(prefix + Integer.toString(i + 1), record.getBigint(30 + i));
+    	}
+    	value.setBigint("is_buy", record.getBigint(33));
+//    	if(is_buy == 0)
+    		context.write(value);
+//    	else{
+//    		int resample_cnt = 50;
+//    		for(int i = 0; i < resample_cnt; ++i)
+//    			context.write(value);
+//    	}
+    }
+
+    public void cleanup(TaskContext context) throws IOException {
+
+    }
+}

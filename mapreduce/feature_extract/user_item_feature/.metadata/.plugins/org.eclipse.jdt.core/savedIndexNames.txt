@@ -1,0 +1,4 @@
+INDEX VERSION 1.127+E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\user_item_feature\.metadata\.plugins\org.eclipse.jdt.core
+1703631606.index
+2300127349.index
+1005951102.index

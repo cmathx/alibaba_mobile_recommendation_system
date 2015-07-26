@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapred>
+    <!-- profile -->
+    <baseId>fcb988d02a8e1ee619dc4122427a052e</baseId>
+    <projectId>2420</projectId>
+    <resourceName>res_test_set</resourceName>
+    <idePath>工作流/mapreduce</idePath>
+
+    <!-- classes -->
+    <jobLauncher>my.group.resample.JobLauncher</jobLauncher>
+    <mapper>my.group.resample.MyMapper</mapper>
+    <!-- reducer>my.group.resample.MyReducer</reducer> -->
+    <!-- combiner>my.group.resample.MyCombiner</combiner> -->
+
+    <!--task-->
+    <mapOutputKey>user_id:string,item_id:string</mapOutputKey>
+    <mapOutputValue>beh_rate1:double, beh_rate2:double, beh_rate3:double, beh_rate4:double, is_finalday_occur1:bigint, is_finalday_occur2:bigint, is_finalday_occur3:bigint, is_finalday_occur4:bigint, is_finalhalfday_occur1:bigint, is_finalhalfday_occur2:bigint, is_finalhalfday_occur3:bigint, is_finalhalfday_occur4:bigint, final_beh_hour1:bigint, final_beh_hour2:bigint, final_beh_hour3:bigint, final_beh_hour4:bigint, final_beh_hour5:bigint, first_beh_hour1:bigint, first_beh_hour2:bigint, first_beh_hour3:bigint, first_beh_hour4:bigint, first_beh_hour5:bigint, final_beh_day1:bigint, final_beh_day2:bigint, final_beh_day3:bigint, final_beh_day4:bigint, final_beh_day5:bigint, first_beh_day1:bigint, first_beh_day2:bigint, first_beh_day3:bigint, first_beh_day4:bigint, first_beh_day5:bigint, interval1:double, interval2:double, interval3:double, interval4:double, beh_days1:bigint, beh_days2:bigint, beh_days3:bigint, beh_days4:bigint, beh_days5:bigint, ui_beh_ratio:double, ui_beh_day_ratio:double, near_buy_time1:bigint, near_buy_time2:bigint, near_cart_time1:bigint, near_cart_time2:bigint, near_contact_time1:bigint, near_contact_time2:bigint, buy_count1:bigint, buy_count2:bigint, buy_count3:bigint, buy_count4:bigint, buy_count5:bigint, cart_count1:bigint, cart_count2:bigint, cart_count3:bigint, cart_count4:bigint, cart_count5:bigint, beh_count1:bigint, beh_count2:bigint, beh_count3:bigint, beh_count4:bigint, beh_count5:bigint, buy_items1:bigint, buy_items2:bigint, buy_items3:bigint, buy_items4:bigint, buy_items5:bigint, cart_items1:bigint, cart_items2:bigint, cart_items3:bigint, cart_items4:bigint, cart_items5:bigint, beh_items1:bigint, beh_items2:bigint, beh_items3:bigint, beh_items4:bigint, beh_items5:bigint, buy_days1:bigint, buy_days2:bigint, buy_days3:bigint, cart_days1:bigint, cart_days2:bigint, cart_days3:bigint, u_beh_days1:bigint, u_beh_days2:bigint, u_beh_days3:bigint, buy_count_per_item:double, beh_count_per_item:double, user_buy_count_ratio:double, user_buy_day_ratio:double, user_buy_items_ratio:double, buy_frequency:double, buy_flag1:bigint, buy_flag2:bigint, buy_flag3:bigint, buy_flag4:bigint, buy_flag5:bigint, buy_cnt:bigint, cart_cnt:bigint, buy_user_cnt:bigint, cart_user_cnt:bigint, buy_converse_ratio:double, per_buy:double, buy_converse_user_ratio:double, back_user_ratio:double, per_cart:double, cart_converse_user_ratio:double, back_user_cnt:bigint, back_user_cart_cnt:bigint, final_item_beh_hour1:bigint, final_item_beh_hour2:bigint, final_item_beh_hour3:bigint, final_item_beh_hour4:bigint, final_item_beh_hour5:bigint, cart_users1:bigint, cart_users2:bigint, cart_users3:bigint, cart_users4:bigint, cart_users5:bigint, buy_users1:bigint, buy_users2:bigint, buy_users3:bigint, buy_users4:bigint, buy_users5:bigint, beh_users1:bigint, beh_users2:bigint, beh_users3:bigint, beh_users4:bigint, beh_users5:bigint, i_cart_days1:bigint, i_cart_days2:bigint, i_cart_days3:bigint, i_buy_days1:bigint, i_buy_days2:bigint, i_buy_days3:bigint, i_beh_days1:bigint, i_beh_days2:bigint, i_beh_days3:bigint, first_last_cnt1:bigint, first_last_cnt2:bigint, first_last_cnt3:bigint, first_last_cnt4:bigint, first_last_cnt5:bigint, first_last_cnt6:bigint, is_buy:bigint
+</mapOutputValue>
+    <!--
+    <partitionColumns>col1,col2</partitionColumns>
+    <outputKeySortColumns>col1,col2</outputKeySortColumns>
+    <outputKeySortOrders>ASC,DESC</outputKeySortOrders>
+    <outputGroupingColumns>col1,col2</outputGroupingColumns>
+    <numReduceTask>0</numReduceTask>
+    <memoryForMapTask>2048</memoryForMapTask>
+    <memoryForReduceTask>2048</memoryForReduceTask>
+    -->
+
+    <!-- tables -->
+    <inputTables>
+        <table>
+            <name>test_set1</name>
+        </table>
+    </inputTables>
+    <outputTable>
+        <name>res_test_set</name>
+    </outputTable>
+</mapred>

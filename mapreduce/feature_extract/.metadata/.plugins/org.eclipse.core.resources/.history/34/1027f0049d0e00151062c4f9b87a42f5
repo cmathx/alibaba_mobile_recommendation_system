@@ -1,0 +1,4 @@
+project=local
+table=test_set_item
+columns=item_id:STRING,buy_cnt:BIGINT,buy_user_cnt:BIGINT,converse_ratio:DOUBLE,per_buy:DOUBLE,converse_user_ratio:DOUBLE,back_user_cnt:BIGINT,back_user_ratio:DOUBLE,final_item_beh_hour1:BIGINT,final_item_beh_hour2:BIGINT,buy_users1:BIGINT,buy_users2:BIGINT,buy_users3:BIGINT,buy_users4:BIGINT,buy_users5:BIGNINT,beh_users1:BIGINT,beh_users2:BIGINT,beh_users3:BIGINT,beh_users4:BIGINT,beh_users5:BIGINT
+partition=dt:STRING

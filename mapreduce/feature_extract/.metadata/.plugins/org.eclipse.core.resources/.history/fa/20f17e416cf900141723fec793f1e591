@@ -1,0 +1,63 @@
+package my.group.mapreduce;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Reducer;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * Reducer模板。请用真实逻辑替换模板内容
+ */
+public class MyReducer implements Reducer {
+    private Record result;
+
+    public void setup(TaskContext context) throws IOException {
+        result = context.createOutputRecord();
+    }
+
+    public void reduce(Record key, Iterator<Record> values, TaskContext context) throws IOException {
+//        long count = 0;
+//        while (values.hasNext()) {
+//            Record val = values.next();
+//            count += val.getBigint(0);
+//        }
+//        result.set(0, key.get(0));
+//        result.set(1, count);
+//        context.write(result);
+    	Map<String, Long[]> typeCounter = new TreeMap<String, Long[]>();
+    	while (values.hasNext()) {
+    	  Record val = values.next();
+    	  String date = val.getString("time");
+    	  int type = Integer.parseInt(val.getString("behavior_type"));
+    	  if (typeCounter.containsKey(date)) {
+    		typeCounter.get(date)[type]++;
+    	  } else {
+    		Long[] counter = new Long[]{0L, 0L, 0L, 0L};
+    		counter[type]++;
+    		typeCounter.put(date, counter);
+    	  }
+    	}
+    	result.set(0, key.getString("user_id"));
+    	result.set(1, key.getString("item_id"));
+    	Long cumClicks = 0L;
+    	
+    	for (String date : typeCounter.keySet()){
+    		result.set(2, date);
+    		result.set(3, typeCounter.get(date)[0]);
+    		result.set(4, typeCounter.get(date)[1]);
+    		result.set(5, typeCounter.get(date)[2]);
+    		result.set(6, typeCounter.get(date)[3]);
+    		cumClicks += typeCounter.get(date)[0];
+    		result.set(7, cumClicks);
+    		context.write(result);
+    	}
+    	System.out.println("reduce worker end");
+    }
+
+    public void cleanup(TaskContext arg0) throws IOException {
+
+    }
+}

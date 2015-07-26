@@ -1,0 +1,38 @@
+package my.group.resample;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Mapper;
+
+import java.io.IOException;
+
+/**
+ * Mapper模板。请用真实逻辑替换模板内容
+ */
+public class MyMapper implements Mapper {
+	private Record key;
+    private Record value;
+
+    public void setup(TaskContext context) throws IOException {
+    	key = context.createMapOutputKeyRecord();
+        value = context.createMapOutputValueRecord();
+    }
+
+    public void map(long recordNum, Record record, TaskContext context) throws IOException {
+    	key.setString("user_id", record.getString(0));
+    	key.setString("item_id", record.getString(1));
+    	value.setDouble("click_rate", record.getDouble(2));
+    	value.setDouble("collect_rate", record.getDouble(3));
+    	value.setDouble("cart_rate", record.getDouble(4));
+    	value.setDouble("buy_rate", record.getDouble(5));
+    	value.setDouble("click_rate1", record.getDouble(6));
+    	value.setDouble("collect_rate1", record.getDouble(7));
+    	value.setDouble("cart_rate1", record.getDouble(8));
+    	value.setDouble("buy_rate1", record.getDouble(9));
+    	value.setBigint("is_buy", record.getBigint(10));
+    	context.write(key, value);
+    }
+
+    public void cleanup(TaskContext context) throws IOException {
+
+    }
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
+<property><name>odps.mapred.input.desc</name><value>[{"tblName":"tianchi_mobile_recommend_train_user_subset","partSpec":{},"label":"__default__"}]</value></property>
+<property><name>odps.mapred.map.class</name><value>my.group.extract_user_feature.MyMapper</value></property>
+<property><name>odps.mapred.job.name</name><value>mr_20150609141145_421_3260</value></property>
+<property><name>odps.mapred.mapoutput.key.schema</name><value>user_id:STRING</value></property>
+<property><name>odps.mapred.mapoutput.value.schema</name><value>item_id:STRING,behavior_type:STRING,time:STRING</value></property>
+<property><name>odps.mapred.output.desc</name><value>[{"tblName":"recommend_set_user","partSpec":{},"label":"__default__"}]</value></property>
+<property><name>odps.mapred.reduce.class</name><value>my.group.extract_user_feature.MyReducer</value></property>
+</configuration>

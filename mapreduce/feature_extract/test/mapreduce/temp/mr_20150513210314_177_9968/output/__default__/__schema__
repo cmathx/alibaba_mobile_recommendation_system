@@ -1,0 +1,4 @@
+project=local
+table=view_in_specific_hour
+columns=user_id:STRING,item_id:STRING,hour:BIGINT,is_buy:BIGINT
+partitions=dt:STRING

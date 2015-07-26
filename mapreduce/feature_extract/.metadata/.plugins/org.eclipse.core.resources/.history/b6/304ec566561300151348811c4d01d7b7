@@ -1,0 +1,160 @@
+package my.group.extract_user_item_feature;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Reducer;
+
+import java.io.IOException;
+import java.util.Iterator;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * Reducer模板。请用真实逻辑替换模板内容
+ */
+public class MyReducer implements Reducer {
+	private Record result;
+
+    public void setup(TaskContext context) throws IOException {
+        result = context.createOutputRecord();
+    }
+
+    public void reduce(Record key, Iterator<Record> values, TaskContext context) throws IOException {
+    	//计算各个小时用户四种行为的点击次数
+    	Map<String, Long[]> typeCounter = new TreeMap<String, Long[]>();
+     	while (values.hasNext()) {
+     	  Record val = values.next();
+     	  String date = val.getString("time");
+//     	  String day_str = val.getString("time").substring(0, 10);
+     	  int type = Integer.parseInt(val.getString("behavior_type")) - 1;
+     	  if (typeCounter.containsKey(date)) {
+     		typeCounter.get(date)[type]++;
+     	  } else {
+     		Long[] counter = new Long[]{0L, 0L, 0L, 0L};
+     		counter[type]++;
+     		typeCounter.put(date, counter);
+     	  }
+     	}
+     	result.set(0, key.getString("user_id"));
+     	result.set(1, key.getString("item_id"));
+     	//准备特征
+     	Double[] behavior_rate = new Double[]{0.0, 0.0, 0.0, 0.0};//评分特征
+     	long[] last_cnt = new long[2];
+     	long[] is_buy_flag = new long[2];
+     	long[] first_beh_hour = new long[4];
+    	long[] last_beh_hour = new long[4];//最后交互的时间
+     	long[] is_finalday_occur = new long[2];//最后一天是否被交互过，买过/交互过
+     	long[] is_finalhalfday_occur = new long[2];//最后半天是否被交互过，买过/交互过
+     	for(int i = 0; i < 4; ++i)
+     		final_beh_hour[i] = 0L;
+     	ArrayList contact_hour = new ArrayList(), buy_hour = new ArrayList();
+//     	long[] focus_cnt = new long[4];//四种行为发生次数
+//     	long[] like = new long[4];
+     	for(int i = 0; i < 2; ++i){
+     		is_finalday_occur[i] = 0L;
+     		is_finalhalfday_occur[i] = 0L;
+     	}
+     	
+     	long[] behavior_cnt = new long[]{0L, 0L};
+     	long[] behavior_day = new long[]{0L, 0L};
+     	
+     	System.out.println(key.getString("user_id"));
+     	System.out.println(key.getString("item_id"));
+     	int is_consider_set = 0;
+     	Long is_buy = 0L;
+     	for (String date : typeCounter.keySet()){
+     		System.out.println(date);
+			long t_hour = getHourSpan("2014-12-19 00", date);
+     		if(t_hour <= -24)
+     			continue;
+     		else if(t_hour > -24 && t_hour <= 0){
+     			//加入是否购买的标记
+     			if(typeCounter.get(date)[3] != 0)
+     				is_buy = 1L;
+     			continue;
+     		}
+     		else if(t_hour == 24 || t_hour == 23 || t_hour <= 17){
+     			//只考虑最近1天浏览过的行为
+     			if(typeCounter.get(date)[0] != 0)
+     				is_consider_set = 1;
+     		}
+     		for(int i = 0; i < 4; ++i){
+     			if(typeCounter.get(date)[i] != 0){
+     				if(t_hour <= 17 || (t_hour >= 24 && t_hour <= 29)){
+     					if(i == 3)
+     						is_finalday_occur[1] = 1L;
+     					else 
+     						is_finalday_occur[0] = 1L;
+     				}
+     				if(t_hour <= 5){
+     					if(i == 3)
+     						is_finalhalfday_occur[1] = 1L;
+     					else 
+     						is_finalhalfday_occur[0] = 1L;
+     				}
+     				if(i == 3)
+     					buy_hour.add(t_hour);
+     				else 
+     					contact_hour.add(t_hour);
+     				if(final_beh_hour[i] > t_hour)
+     					final_beh_hour[i] = t_hour;
+     				int divisor = 2;
+         			if(t_hour % 24 >= 18 && t_hour % 24 <= 22)
+         				divisor = 4;
+         			else if(t_hour % 24 <= 5)
+         				divisor = 1;
+         			divisor += t_hour / 24;
+         			behavior_rate[i] += 1.0 / divisor;
+//         			behavior_cnt[i] += typeCounter.get(date)[i];
+//         			focus_cnt[i] += 1L;
+     			}
+     		}
+     	}
+//     	for(int i = 0; i < 3; ++i){
+//     		if(behavior_cnt[i] == 0)
+//     			behavior_cnt[i + 4] = 1.0;
+//     		else
+//     			behavior_cnt[i + 4] = behavior_cnt[3] / behavior_cnt[i];
+//     	}
+//     	int user_item_feature_num = 48;
+     	if(buy_hour.size() == 1)
+     	for(int i = 0; i < buy_hour.size(); ++i)
+     	if(is_consider_set == 1){
+     		for(int i = 0; i < 4; ++i)
+         		result.set(i + 2, behavior_rate[i]);
+//     		for(int i = 0; i < 7; ++i)
+//     			result.set(i + 10, behavior_cnt[i]);
+     		for(int i = 0; i < 2; ++i){
+     			result.set(i + 6, is_finalday_occur[i]);
+     			result.set(i + 8, is_finalhalfday_occur);
+     		}
+     		for(int i = 0; i < 4; ++i)
+     			result.set(i + 10, final_beh_hour[i]);
+     		result.set(14, is_buy);
+         	context.write(result);
+     	}
+     	System.out.println("...........................");
+    }
+
+    public static long getHourSpan(String sj1, String sj2) {
+		SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH");
+        long day = 0;
+        try {
+        	Date date1 = myFormatter.parse(sj1);
+        	Date date2 = myFormatter.parse(sj2);
+        	day = (date1.getTime() - date2.getTime()) / (60 * 60 * 1000);
+        } catch (Exception e) {
+        	return -1;
+        }
+        return day;
+	} 
+
+    public void cleanup(TaskContext arg0) throws IOException {
+
+    }
+}

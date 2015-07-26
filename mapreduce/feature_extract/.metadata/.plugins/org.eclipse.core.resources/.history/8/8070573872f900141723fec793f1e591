@@ -1,0 +1,87 @@
+package my.group.mapreduce;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Reducer;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * Reducer模板。请用真实逻辑替换模板内容
+ */
+public class MyReducer implements Reducer {
+    private Record result;
+
+    public void setup(TaskContext context) throws IOException {
+        result = context.createOutputRecord();
+    }
+
+    public void reduce(Record key, Iterator<Record> values, TaskContext context) throws IOException {
+    	Map<String, Long[]> typeCounter = new TreeMap<String, Long[]>();
+     	while (values.hasNext()) {
+     	  Record val = values.next();
+     	  String date = val.getString("time");
+     	  int type = Integer.parseInt(val.getString("behavior_type")) - 1;
+     	  if (typeCounter.containsKey(date)) {
+     		typeCounter.get(date)[type]++;
+     	  } else {
+     		Long[] counter = new Long[]{0L, 0L, 0L, 0L};
+     		counter[type]++;
+     		typeCounter.put(date, counter);
+     	  }
+     	}
+     	result.set(0, key.getString("user_id"));
+     	result.set(1, key.getString("item_id"));
+     	
+     	ArrayList<Long> list = new ArrayList<Long>();
+     	int is_consider_set = 0;
+     	Long is_buy = 0L;
+     	for (String date : typeCounter.keySet()){
+			Long t_hour = getHourSpan("2014-12-17 00", date);
+     		if(t_hour <= -24)
+     			continue;
+     		else if(t_hour > -24 && t_hour <= 0){
+     			//加入是否购买的标记
+     			if(typeCounter.get(date)[3] != 0)
+     				is_buy = 1L;
+     			continue;
+     		}
+     		else if(t_hour <= 24){
+     			//只考虑最近3天加入购物车的行为
+     			if(typeCounter.get(date)[0] != 0)
+     				is_consider_set = 1;
+     		}
+     		if(typeCounter.get(date)[0] != 0)
+     			list.add(t_hour);
+     	}
+     	if(is_consider_set == 1){
+     		for(int i = 0; i < list.size(); ++i){
+     			result.set(2, is_buy);
+     			result.set(3, is_buy);
+     			context.write(result);
+     		}
+     	}
+    }
+
+    public static Long getHourSpan(String sj1, String sj2) {
+		SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH");
+        Long day = 0L;
+        try {
+        	Date date1 = myFormatter.parse(sj1);
+        	Date date2 = myFormatter.parse(sj2);
+        	day = (date1.getTime() - date2.getTime()) / (60 * 60 * 1000);
+        } catch (Exception e) {
+        	return -1L;
+        }
+        return day;
+	} 
+    
+    public void cleanup(TaskContext arg0) throws IOException {
+
+    }
+}

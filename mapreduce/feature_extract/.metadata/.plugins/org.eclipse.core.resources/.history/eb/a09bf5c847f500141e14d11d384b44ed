@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapred>
+    <!-- profile -->
+    <baseId>fcb988d02a8e1ee619dc4122427a052e</baseId>
+    <projectId>2420</projectId>
+    <resourceName>train_set_user_item1</resourceName>
+    <idePath>工作流/mapreduce</idePath>
+
+    <!-- classes -->
+    <jobLauncher>my.group.extract_user_item_feature.JobLauncher</jobLauncher>
+    <mapper>my.group.extract_user_item_feature.MyMapper</mapper>
+    <reducer>my.group.extract_user_item_feature.MyReducer</reducer>
+    <!--<combiner>my.group.extract_user_item_feature.MyCombiner</combiner>
+
+    <!--task-->
+    <mapOutputKey>user_id:string,item_id:string</mapOutputKey>
+    <mapOutputValue>behavior_type:string,time:string</mapOutputValue>
+    <!--
+    <partitionColumns>col1,col2</partitionColumns>
+    <outputKeySortColumns>col1,col2</outputKeySortColumns>
+    <outputKeySortOrders>ASC,DESC</outputKeySortOrders>
+    <outputGroupingColumns>col1,col2</outputGroupingColumns>
+    <numReduceTask>8</numReduceTask>
+    <memoryForMapTask>2048</memoryForMapTask>
+    <memoryForReduceTask>2048</memoryForReduceTask>
+    -->
+
+    <!-- tables -->
+    <inputTables>
+        <table>
+            <name>tianchi_mobile_recommend_train_user_subset</name>
+        </table>
+    </inputTables>
+    <outputTable>
+        <name>train_set_user_item1</name>
+    </outputTable>
+</mapred>

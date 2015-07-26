@@ -1,0 +1,5 @@
+project=local
+table=test_set_user_item
+columns=user_id:string,item_id:string,view_rate:double,col_rate:double,cart_rate:double,buy_rate:double,is_finalday_contact:bigint,is_finalday_buy:bigint,is_finalhalfday_contact:bigint,is_finalhalfday_buy:bigint,final_beh_hour1:bigint,final_beh_hour2:bigint,final_beh_hour3:bigint,final_beh_hour4:bigint,is_buy:bigint
+user_id:STRING, item_id:STRING, view_rate:DOUBLE, col_rate:DOUBLE, cart_rate:DOUBLE, buy_rate:DOUBLE, is_finalday_contact:BIGINT, is_finalday_buy:BIGINT, is_finalhalfday_contact:BIGINT, is_finalhalfday_buy:BIGINT, final_beh_hour1:BIGINT, final_beh_hour2:BIGINT, final_beh_hour3:BIGINT, final_beh_hour4:BIGINT, is_buy£ºBIGINT
+partitions=dt:STRING

@@ -1,0 +1,12 @@
+Start tag: html
+Start tag: head
+Start tag: title
+Data     : Test
+End tag  : title
+End tag  : head
+Start tag: body
+Start tag: h1
+Data     : Parse me!
+End tag  : h1
+End tag  : body
+End tag  : html

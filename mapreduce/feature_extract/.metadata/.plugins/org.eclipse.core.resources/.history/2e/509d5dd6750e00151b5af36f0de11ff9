@@ -1,0 +1,4 @@
+project=local
+table=
+columns=word:STRING,cnt:BIGINT
+partitions=dt:STRING

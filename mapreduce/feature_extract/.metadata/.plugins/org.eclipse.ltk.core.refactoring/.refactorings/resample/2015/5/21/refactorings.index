@@ -1,0 +1,7 @@
+1431937352437	Delete element
+1431937355235	Move 'data' to 'wordcount_in'
+1431937358718	Delete element
+1431937363169	Move 'R_000000' to 'wordcount_out'
+1431937366338	Delete element
+1431937377836	Rename resource 'wordcount_in'
+1431937385311	Rename resource 'wordcount_out'

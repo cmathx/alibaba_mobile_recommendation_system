@@ -1,0 +1,4 @@
+https://app.dominoup.com/woobe/quick-start/view/Kaggle_AfSIS_with_H2O.R?commitId=6d624471604994f68de9f790dc7457a03f10c15e
+https://github.com/cran/deepnet/blob/master/R/rbm_train.R
+http://stats.stackexchange.com/questions/41771/r-libraries-for-deep-learning
+http://www.cnblogs.com/easonlv/p/3658198.html

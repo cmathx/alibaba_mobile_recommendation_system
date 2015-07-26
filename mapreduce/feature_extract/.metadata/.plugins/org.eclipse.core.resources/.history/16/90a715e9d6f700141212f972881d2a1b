@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapred>
+    <!-- profile -->
+    <baseId>fcb988d02a8e1ee619dc4122427a052e</baseId>
+    <projectId>2420</projectId>
+    <resourceName>res_test_set_user_item</resourceName>
+    <idePath>工作流/mapreduce</idePath>
+
+    <!-- classes -->
+    <jobLauncher>my.group.resample.JobLauncher</jobLauncher>
+    <mapper>my.group.resample.MyMapper</mapper>
+    <reducer>my.group.resample.MyReducer</reducer>
+    <!-- combiner>my.group.extract_base_feature.MyCombiner</combiner> -->
+
+    <!--task-->
+    <mapOutputKey>user_id:STRING,item_id:STRING</mapOutputKey>
+    <mapOutputValue>uir1:DOUBLE, uir2:DOUBLE, uir3:DOUBLE, uir4:DOUBLE, uir5:DOUBLE, uir6:DOUBLE, uir7:DOUBLE, uir8:DOUBLE,
+uic1:DOUBLE, uic2:DOUBLE, uic3:DOUBLE, uic4:DOUBLE, uicr1:DOUBLE, uicr2:DOUBLE, uicr3:DOUBLE, uif1:DOUBLE, uif2:DOUBLE, uif3:DOUBLE, uif4:DOUBLE,
+is_buy:BIGINT</mapOutputValue>
+    <!--
+    <partitionColumns>col1,col2</partitionColumns>
+    <outputKeySortColumns>col1,col2</outputKeySortColumns>
+    <outputKeySortOrders>ASC,DESC</outputKeySortOrders>
+    <outputGroupingColumns>col1,col2</outputGroupingColumns>
+    <numReduceTask>8</numReduceTask>
+    <memoryForMapTask>2048</memoryForMapTask>
+    <memoryForReduceTask>2048</memoryForReduceTask>
+    -->
+
+    <!-- tables -->
+    <inputTables>
+        <table>
+            <name>test_set_user_item</name>
+        </table>
+    </inputTables>
+    <outputTable>
+        <name>res_test_set_user_item</name>
+    </outputTable>
+</mapred>

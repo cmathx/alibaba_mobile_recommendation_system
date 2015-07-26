@@ -1,0 +1,3 @@
+--@extra_output=test_set_user_item_tmp
+--@extra_input=tianchi_mobile_recommend_train_user_subset
+jar -libjars test_set_user_item_tmp.jar -classpath http://@{env}.codebase.de.yushanfang.com/scheduler/res?id=56682 com.alibaba.base.mapred.JobLauncher;

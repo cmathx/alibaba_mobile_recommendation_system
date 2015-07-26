@@ -1,0 +1,8 @@
+project=local
+table=wordcount_out
+columns=user_id:STRING, item_id:STRING, view_rate:DOUBLE, col_rate:DOUBLE, cart_rate:DOUBLE, buy_rate:DOUBLE, 
+view_occur1:BIGINT, view_occur2:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT,
+view_occur1:BIGINT, view_occur2:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT,
+view_occur1:BIGINT, view_occur2:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT, view_occur1:BIGINT,
+ccb_occur1:BIGINT, ccb_occur2:BIGINT, ccb_occur3:BIGINT, is_buy:BIGINT
+partitions=dt:STRING

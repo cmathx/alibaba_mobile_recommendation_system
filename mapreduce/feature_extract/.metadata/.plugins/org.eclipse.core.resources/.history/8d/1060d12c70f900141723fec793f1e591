@@ -1,0 +1,4 @@
+project=local
+table=wordcount_in
+columns=user_id:STRING,item_id:STRING,behavior_type:STRING,user_geohash:STRING,item_category:STRING,time:STRING
+partitions=dt:STRING

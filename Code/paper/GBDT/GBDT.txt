@@ -1,0 +1,6 @@
+损失函数的形式(distribution)
+迭代次数(n.trees)
+学习速率(shrinkage)
+再抽样比率(bag.fraction)
+决策树的深度(interaction.depth)
+交叉验证(cv.folds)

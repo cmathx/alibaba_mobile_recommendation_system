@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<udf>
+    <!-- profile -->
+    <baseId>1</baseId>
+    <projectId>1</projectId>
+    <resourceName>udf</resourceName>
+    <functionName>myudf</functionName>
+    <idePath>workflow/myfolder</idePath>
+
+    <!-- classes -->
+    <className>my.group.udf.MyUDF</className>
+</udf>

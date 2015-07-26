@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><configuration>
+<property><name>odps.mapred.input.desc</name><value>[{"tblName":"train_set_user_item","partSpec":{},"label":"__default__"}]</value></property>
+<property><name>odps.mapred.map.class</name><value>my.group.resample.MyMapper</value></property>
+<property><name>odps.mapred.job.name</name><value>mr_20150518165335_641_13552</value></property>
+<property><name>odps.mapred.mapoutput.key.schema</name><value>user_id:STRING,item_id:STRING</value></property>
+<property><name>odps.mapred.mapoutput.value.schema</name><value>uir1:DOUBLE,uir2:DOUBLE,uir3:DOUBLE,uir4:DOUBLE,uir5:DOUBLE,uir6:DOUBLE,uir7:DOUBLE,uir8:DOUBLE,uic1:DOUBLE,uic2:DOUBLE,uic3:DOUBLE,uic4:DOUBLE,uicr1:DOUBLE,uicr2:DOUBLE,uicr3:DOUBLE,uif1:DOUBLE,uif2:DOUBLE,uif3:DOUBLE,uif4:DOUBLE,is_buy:BIGINT</value></property>
+<property><name>odps.mapred.output.desc</name><value>[{"tblName":"res_train_set_user_item","partSpec":{},"label":"__default__"}]</value></property>
+</configuration>

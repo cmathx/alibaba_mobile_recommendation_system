@@ -1,0 +1,4 @@
+project=local
+table=recommend_set_user
+columns=user_id:STRING,near_buy_time1:BIGINT,near_buy_time2:BIGINT,near_contact_time1:BIGINT,near_contact_time2:BIGINT,buy_count1:BIGINT,buy_count2:BIGINT,buy_count3:BIGINT,buy_count4:BIGINT,buy_count5:BIGINT,beh_count1:BIGINT,beh_count2:BIGINT,beh_count3:BIGINT,beh_count4:BIGINT,beh_count5:BIGINT,buy_items1:BIGINT,buy_items2:BIGINT,buy_items3:BIGINT,buy_items4:BIGINT,buy_items5:BIGINT,beh_items1:BIGINT,beh_items2:BIGINT,beh_items3:BIGINT,beh_items4:BIGINT,beh_items5:BIGINT,buy_days1:BIGINT,buy_days2:BIGINT,buy_days3:BIGINT,beh_days1:BIGINT,beh_days2:BIGINT,beh_days3:BIGINT,buy_count_per_item:DOUBLE,beh_count_per_item:DOUBLE,user_buy_count_ratio:DOUBLE,user_buy_day_ratio:DOUBLE,user_buy_items_ratio:DOUBLE,buy_frequency:DOUBLE,buy_consider_hours:BIGINT,buy_flag1:BIGINT,buy_flag2:BIGINT,buy_flag3:BIGINT,buy_flag4:BIGINT,buy_flag5:BIGINT
+partitions=dt:STRING

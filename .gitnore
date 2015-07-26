@@ -1,0 +1,7 @@
+/Code/.idea/
+
+.csv
+.csv~
+
+#python
+.pyc

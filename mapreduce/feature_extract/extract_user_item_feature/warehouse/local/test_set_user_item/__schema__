@@ -1,0 +1,4 @@
+project=local
+table=test_set_user_item
+columns=user_id:string,item_id:string,view_rate:double,col_rate:double,cart_rate:double,buy_rate:double,is_finalday_contact:bigint,is_finalday_buy:bigint,is_finalhalfday_contact:bigint,is_finalhalfday_buy:bigint,final_beh_hour1:bigint,final_beh_hour2:bigint,final_beh_hour3:bigint,final_beh_hour4:bigint,is_buy:bigint
+partitions=dt:STRING

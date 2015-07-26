@@ -1,0 +1,4 @@
+project=local
+table=train_set_user_item
+columns=word:STRING
+partitions=dt:STRING

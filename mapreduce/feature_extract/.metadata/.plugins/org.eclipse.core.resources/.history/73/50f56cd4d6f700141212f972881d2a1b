@@ -1,0 +1,49 @@
+package my.group.resample;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Mapper;
+
+import java.io.IOException;
+
+/**
+ * Mapper模板。请用真实逻辑替换模板内容
+ */
+public class MyMapper implements Mapper {
+	private Record key;
+    private Record value;
+
+    public void setup(TaskContext context) throws IOException {
+    	key = context.createMapOutputKeyRecord();
+        value = context.createMapOutputValueRecord();
+    }
+
+    public void map(long recordNum, Record record, TaskContext context) throws IOException {
+    	key.setString("user_id", record.getString(0));
+    	key.setString("item_id", record.getString(1));
+    	value.setDouble("uir1", record.getDouble(2));
+    	value.setDouble("uir2", record.getDouble(3));
+    	value.setDouble("uir3", record.getDouble(4));
+    	value.setDouble("uir4", record.getDouble(5));
+    	value.setDouble("uir5", record.getDouble(6));
+    	value.setDouble("uir6", record.getDouble(7));
+    	value.setDouble("uir7", record.getDouble(8));
+    	value.setDouble("uir8", record.getDouble(9));
+    	value.setDouble("uic1", record.getDouble(10));
+    	value.setDouble("uic2", record.getDouble(11));
+    	value.setDouble("uic3", record.getDouble(12));
+    	value.setDouble("uic4", record.getDouble(13));
+    	value.setDouble("uicr1", record.getDouble(14));
+    	value.setDouble("uicr2", record.getDouble(15));
+    	value.setDouble("uicr3", record.getDouble(16));
+    	value.setDouble("uif1", record.getDouble(17));
+    	value.setDouble("uif2", record.getDouble(18));
+    	value.setDouble("uif3", record.getDouble(19));
+    	value.setDouble("uif4", record.getDouble(20));
+    	value.setBigint("is_buy", record.getBigint(21));
+    	context.write(key, value);
+    }
+
+    public void cleanup(TaskContext context) throws IOException {
+
+    }
+}

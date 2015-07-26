@@ -1,0 +1,4 @@
+project=local
+table=test_set1
+columns=user_id:STRING,item_id:STRING,rate:DOUBLE
+partitions=dt:STRING

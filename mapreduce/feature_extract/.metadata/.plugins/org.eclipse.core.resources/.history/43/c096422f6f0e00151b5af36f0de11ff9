@@ -1,0 +1,199 @@
+package my.group.extract_user_feature;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Reducer;
+
+import java.awt.List;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+/**
+ * Reducer模板。请用真实逻辑替换模板内容
+ */
+public class MyReducer implements Reducer {
+	private Record result;
+
+    public void setup(TaskContext context) throws IOException {
+    	result = context.createOutputRecord();
+    }
+
+    public void reduce(Record key, Iterator<Record> values, TaskContext context) throws IOException {
+    	long[] near_buy_time = new long[2];//用户第一次/最近一次购买任意品牌时间
+    	long[] near_contact_time = new long[2];//用户第一次/最近一次交互任意品牌时间
+    	long[] buy_count = new long[5];//用户最近1/3/7/15/30天购买所有品牌的次数
+    	long[] beh_count = new long[5];//用户最近1/3/7/15/30天交互所有品牌的次数
+    	long[] buy_items = new long[5];//用户最近1/3/7/15/30天交互过不同品牌的个数
+    	long[] beh_items = new long[5];//用户最近1/3/7/15/30天购买过不同品牌的个数
+    	long[] buy_days = new long[3];//用户最近7/15/30天有多少天交互任意品牌
+    	long[] beh_days = new long[3];//用户最近7/15/30天有多少天购买任意品牌
+    	double buy_count_per_item = 0.0, beh_count_per_item = 0.0;
+    	double user_buy_count_ratio = 1.0, user_buy_day_ratio = 1.0, user_buy_items_ratio = 1.0;
+    	double buy_frequency = 0.0;
+    	long buy_consider_hours = 720L;
+    	long[] buy_flag = new long[5]; 
+    	near_buy_time[0] = 0L; near_buy_time[1] = 720L;
+    	near_contact_time[0] = 0L; near_contact_time[1] = 720L;
+    	
+    	Set[] buy_items_set = new HashSet[5], beh_items_set = new HashSet[5];
+    	for(int i = 0; i < 5; ++i){
+    		buy_items_set[i] = new HashSet();
+    		beh_items_set[i] = new HashSet();
+    	}
+    	boolean[] buy_day_flag = new boolean[30], beh_day_flag = new boolean[30];
+//    	ArrayList buy_gap = new ArrayList();
+    	
+    	while(values.hasNext()){
+    		Record val = values.next();
+    		String item_id = val.getString("item_id");
+			String date = val.getString("time");
+			String day_str = date.substring(0, 10);
+			int type = Integer.parseInt(val.getString("behavior_type")) - 1;
+			long t_hour = getHourSpan("2014-12-19 00", date);
+			int t_day = (int)t_hour / 24;
+			if(t_hour <= 0 || t_hour >= 720)
+				continue;
+			if(type == 3){
+				if(t_hour < near_buy_time[1])
+					near_buy_time[1] = t_hour;
+				if(t_hour > near_buy_time[0])
+					near_buy_time[0] = t_hour;
+				if(t_hour < 24){
+					buy_count[0] += 1;
+					buy_items_set[0].add(item_id);
+					buy_flag[0] = 1;
+				}
+				if(t_hour < 72){
+					buy_count[1] += 1;
+					buy_items_set[1].add(item_id);
+					buy_flag[1] = 1;
+				}
+				if(t_hour < 168){
+					buy_count[2] += 1;
+					buy_items_set[2].add(item_id);
+					buy_flag[2] = 1;
+				}
+				if(t_hour < 360){
+					buy_count[3] += 1;
+					buy_items_set[3].add(item_id);
+					buy_flag[3] = 1;
+				}
+				buy_count[4] += 1;
+				buy_items_set[4].add(item_id);
+				buy_day_flag[t_day] = true;
+				
+//				buy_gap.add(t_day);
+				
+				buy_flag[4] = 1;
+			}
+			else{
+				if(t_hour < near_contact_time[1])
+					near_contact_time[1] = t_hour;
+				if(t_hour > near_contact_time[0])
+					near_contact_time[0] = t_hour;
+				if(t_hour < 24){
+					beh_count[0] += 1;
+					beh_items_set[0].add(item_id);
+				}
+				if(t_hour < 72){
+					beh_count[1] += 1;
+					beh_items_set[1].add(item_id);
+				}
+				if(t_hour < 168){
+					beh_count[2] += 1;
+					beh_items_set[2].add(item_id);
+				}
+				if(t_hour < 360){
+					beh_count[3] += 1;
+					beh_items_set[3].add(item_id);
+				}
+				buy_count[4] += 1;
+				beh_items_set[4].add(item_id);
+				beh_day_flag[t_day] = true;
+			}
+    	}
+    	for(int i = 0; i < 5; ++i){
+    		buy_items[i] = buy_items_set.length;
+    		beh_items[i] = beh_items_set.length;
+    	}
+    	for(int i = 0; i < 30; ++i){
+    		if(i < 7){
+    			if(buy_day_flag[i])
+    				buy_days[0] += 1;
+    			if(beh_day_flag[i])
+    				beh_days[0] += 1;
+    		}
+    		if(i < 15){
+    			if(buy_day_flag[i])
+    				buy_days[1] += 1;
+    			if(beh_day_flag[i])
+    				beh_days[1] += 1;
+    		}
+    		if(buy_day_flag[i])
+    			buy_days[2] += 1;
+    		if(beh_day_flag[i])
+    			beh_days[2] += 1;
+    	}
+    	buy_count_per_item = 1.0 * buy_count[4] / buy_items[4];
+    	beh_count_per_item = 1.0 * beh_count[4] / beh_items[4];
+    	if(beh_count[4] == 0)
+    		user_buy_count_ratio = 1.0 * buy_count[4] / beh_count[4];
+    	if(beh_days[4] == 0)	
+    		user_buy_day_ratio = 1.0 * buy_days[2] / beh_days[4];
+    	if(beh_items[4] == 0)
+    		user_buy_items_ratio = 1.0 * buy_items[4] / beh_items[4];
+    	
+//    	Collections.sort(buy_gap);
+    	
+    	result.set(0, key.getString("user_id"));
+    	for(int i = 0; i < 2; ++i){
+    		result.set(i + 1, near_buy_time[i]);
+    		result.set(i + 3, near_contact_time[i]);
+    	}
+    	for(int i = 0; i < 5; ++i){
+    		result.set(i + 5, buy_count[i]);
+    		result.set(i + 10, beh_count[i]);
+    		result.set(i + 15, buy_items[i]);
+    		result.set(i + 20, beh_items[i]);
+    	}
+    	for(int i = 0; i < 3; ++i){
+    		result.set(i + 25, buy_days[i]);
+    		result.set(i + 28, beh_days[i]);
+    	}
+    	result.set(31, buy_count_per_item);
+    	result.set(32, beh_count_per_item);
+    	result.set(33, user_buy_count_ratio);
+    	result.set(34, user_buy_day_ratio);
+    	result.set(35, user_buy_items_ratio);
+    	result.set(36, buy_frequency);
+    	result.set(37, buy_consider_hours);
+    	for(int i = 0; i < 5; ++i)
+    		result.set(i + 38, buy_flag[i]);
+    }
+
+    public static long getHourSpan(String sj1, String sj2) {
+		SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH");
+        long day = 0;
+        try {
+        	Date date1 = myFormatter.parse(sj1);
+        	Date date2 = myFormatter.parse(sj2);
+        	day = (date1.getTime() - date2.getTime()) / (60 * 60 * 1000);
+        } catch (Exception e) {
+        	return -1;
+        }
+        return day;
+	}
+    
+    public void cleanup(TaskContext arg0) throws IOException {
+
+    }
+}

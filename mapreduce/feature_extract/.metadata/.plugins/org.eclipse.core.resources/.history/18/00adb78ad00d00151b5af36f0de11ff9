@@ -1,0 +1,55 @@
+package my.group.extract_user_feature;
+
+import com.aliyun.odps.data.Record;
+import com.aliyun.odps.mapred.Reducer;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+/**
+ * Reducer模板。请用真实逻辑替换模板内容
+ */
+public class MyReducer implements Reducer {
+	private Record result;
+
+    public void setup(TaskContext context) throws IOException {
+    	result = context.createOutputRecord();
+    }
+
+    public void reduce(Record key, Iterator<Record> values, TaskContext context) throws IOException {
+    	long[] nead_buy_time = new long[2];//用户第一次/最近一次购买任意品牌时间
+    	long[] near_contact_time = new long[2];//用户第一次/最近一次交互任意品牌时间
+    	long[] buy_count = new long[5];//用户最近1/3/7/15/30天购买所有品牌的次数
+    	long[] beh_count = new long[5];//用户最近1/3/7/15/30天交互所有品牌的次数
+    	long[] buy_items = new long[5];//用户最近1/3/7/15/30天交互过不同品牌的个数
+    	long[] beh_items = new long[5];//用户最近1/3/7/15/30天购买过不同品牌的个数
+    	long[] buy_days = new long[3];//用户最近7/15/30天有多少天交互任意品牌
+    	long[] beh_days = new long[3];//用户最近7/15/30天有多少天购买任意品牌
+    	long items_per_day = 0L, count_per_day = 0L, count_per_item = 0L;
+    	double user_buy_count_ratio = 0.0, user_buy_day_ratio = 0.0, user_buy_items_ratio = 0.0;
+    	double buy_frequency = 0.0;
+    	long buy_consider_hours = 720L;
+    	long[] buy_flag = new long[5]; 
+    }
+
+    public static long getHourSpan(String sj1, String sj2) {
+		SimpleDateFormat myFormatter = new SimpleDateFormat("yyyy-MM-dd HH");
+        long day = 0;
+        try {
+        	Date date1 = myFormatter.parse(sj1);
+        	Date date2 = myFormatter.parse(sj2);
+        	day = (date1.getTime() - date2.getTime()) / (60 * 60 * 1000);
+        } catch (Exception e) {
+        	return -1;
+        }
+        return day;
+	}
+    
+    public void cleanup(TaskContext arg0) throws IOException {
+
+    }
+}

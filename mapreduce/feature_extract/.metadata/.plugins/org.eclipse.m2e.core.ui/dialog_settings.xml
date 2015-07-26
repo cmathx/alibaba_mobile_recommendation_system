@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectWizardArtifactPage">
+		<list key="groupId">
+		</list>
+		<list key="name">
+		</list>
+		<list key="artifactId">
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
+	</section>
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="E:\Competetion\extract_user_item_feature_1"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\test\wordcount"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\test\mapreduce"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\resample"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardArchetypePage">
+		<item value="http://maven.sdk.de.yushanfang.com/SNAPSHOT" key="catalog"/>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.wizards.CustomArchetypeDialog">
+	</section>
+	<section name="org.eclipse.m2e.core.ui.internal.preferences.RemoteArchetypeCatalogDialog">
+		<list key="catalogUrl">
+			<item value="http://maven.sdk.de.yushanfang.com/SNAPSHOT"/>
+		</list>
+	</section>
+	<section name="MavenProjectWizardLocationPage">
+		<list key="location">
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\extract_user_item_feature\src\main\resources\credential.properties"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\extract_user_item_feature\src\main\resources\META-INF\base.mapred.xml"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\resample\src\main\java\my\group\resample\MyMapper.java"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\test\count_four_bahavior"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\extract_user_feature\src\main\java\my\group\extract_user_feature\MyMapper.java"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\extract_base_feature"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\extract_base_feature\src\main\resources\credential.properties"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\base_feature_extract\warehouse\local\wordcount_out\__schema__"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\mapreduce\src\main\java\my\group\mapreduce\MyReducer.java"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\mapreduce\src\main\java\my\group\mapreduce\MyMapper.java"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\mapreduce"/>
+			<item value="E:\Competetion\TianChi\alibaba_mobile_recommend_system\mapreduce\feature_extract\mapreduce\src\main\java\my\group\mapreduce\JobLauncher.java"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+	</section>
+	<section name="Maven2ProjectWizardArchifactPage">
+		<list key="package">
+			<item value="my.group.connect_feature1"/>
+			<item value="my.group.extract_item_feature"/>
+		</list>
+		<list key="groupId">
+			<item value="my.group"/>
+		</list>
+		<list key="artifactId">
+			<item value="connect_feature1"/>
+			<item value="extract_item_feature"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+		</list>
+		<list key="version">
+			<item value="0.0.1-SNAPSHOT"/>
+		</list>
+	</section>
+</section>

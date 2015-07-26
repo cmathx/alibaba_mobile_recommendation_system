@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapred>
+    <!-- profile -->
+    <baseId>fcb988d02a8e1ee619dc4122427a052e</baseId>
+    <projectId>2420</projectId>
+    <resourceName>res_train_set_user_item</resourceName>
+    <idePath>工作流/mapreduce</idePath>
+
+    <!-- classes -->
+    <jobLauncher>my.group.resample.JobLauncher</jobLauncher>
+    <mapper>my.group.resample.MyMapper</mapper>
+    <reducer>my.group.resample.MyReducer</reducer>
+    <!-- combiner>my.group.resample.MyCombiner</combiner> -->
+
+    <!--task-->
+    <mapOutputKey>user_id:STRING,item_id:STRING</mapOutputKey>
+    <mapOutputValue>view_rate:DOUBLE, col_rate:DOUBLE, cart_rate:DOUBLE, buy_rate:DOUBLE, 
+view_occur1:BIGINT, view_occur2:BIGINT, view_occur3:BIGINT, view_occur4:BIGINT, view_occur5:BIGINT, view_occur6:BIGINT, view_occur7:BIGINT, view_occur8:BIGINT,
+view_occur9:BIGINT, view_occur10:BIGINT, view_occur11:BIGINT, view_occur12:BIGINT, view_occur13:BIGINT, view_occur14:BIGINT, view_occur15:BIGINT, view_occur16:BIGINT,
+view_occur17:BIGINT, view_occur18:BIGINT, view_occur19:BIGINT, view_occur20:BIGINT, view_occur21:BIGINT, view_occur22:BIGINT, view_occur23:BIGINT, view_occur24:BIGINT,
+ccb_occur1:BIGINT, ccb_occur2:BIGINT, ccb_occur3:BIGINT, is_buy:BIGINT</mapOutputValue>
+    <!--
+    <partitionColumns>col1,col2</partitionColumns>
+    <outputKeySortColumns>col1,col2</outputKeySortColumns>
+    <outputKeySortOrders>ASC,DESC</outputKeySortOrders>
+    <outputGroupingColumns>col1,col2</outputGroupingColumns>
+    <numReduceTask>0</numReduceTask>
+    <memoryForMapTask>2048</memoryForMapTask>
+    <memoryForReduceTask>2048</memoryForReduceTask>
+    -->
+
+    <!-- tables -->
+    <inputTables>
+        <table>
+            <name>train_set_user_item</name>
+        </table>
+    </inputTables>
+    <outputTable>
+        <name>res_train_set_user_item</name>
+    </outputTable>
+</mapred>

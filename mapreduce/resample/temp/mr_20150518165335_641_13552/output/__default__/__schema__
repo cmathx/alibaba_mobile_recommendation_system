@@ -1,0 +1,4 @@
+project=local
+table=res_train_set_user_item
+columns=user_id:STRING,item_id:STRING,view_rate:DOUBLE,col_rate:DOUBLE,cart_rate:DOUBLE,buy_rate:DOUBLE
+partitions=dt:STRING
